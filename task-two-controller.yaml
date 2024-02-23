@@ -1,0 +1,82 @@
+openapi: 3.0.1
+info:
+  title: Task Two API definitions
+  version: v.1.0.1
+paths:
+  /anime-characters:
+    get:
+      tags:
+        - task-two-controller
+      operationId: anime-characters
+      parameters:
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            default: 10
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnimeCharactersResponse"
+components:
+  schemas:
+    AnimeCharactersResponse:
+      type: object
+      properties:
+        info:
+          type: object
+          properties:
+            count:
+              type: integer
+              example: 100
+            pages:
+              type: integer
+              example: 1
+            next:
+              type: string
+              example: "https://rickandmortyapi.com/api/character/?page=2"
+            prev:
+              type: string
+              example: "https://rickandmortyapi.com/api/character/?page=1"
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Character"
+    Character:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 200
+        name:
+          type: string
+          example: "Ricky"
+        status:
+          type: string
+          example: Alive
+        species:
+          type: string
+          example: Humanoid
+        type:
+          type: string
+          example: Rick's Toxic Side
+        gender:
+          type: string
+          example: Male
+        episode:
+          type: array
+          items:
+            type: string
+        url:
+          type: string
+          example: www.google.com
